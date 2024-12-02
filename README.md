@@ -24,6 +24,10 @@ To build this project, you must install [all the dependencies](https://github.co
 
 ```sh
 go build
+
+# or by docker
+docker run --rm --platform linux/amd64 -v "$PWD":/app -w /app golang:1.22 bash -c \
+  "apt-get update && apt-get install -y zlib1g-dev && GOOS=linux GOARCH=amd64 go build -o soci-wrapper"
 ```
 
 ## NOTICE
