@@ -105,21 +105,13 @@ func buildIndex(ctx context.Context, dataDir string, sociStore *store.SociStore,
 	if err != nil {
 		return nil, err
 	}
-
 	// Build the SOCI index
-	index, err := builder.Build(ctx, image)
-	if err != nil {
-		return nil, err
-	}
-
-	// Write the SOCI index to the OCI store
-	err = soci.WriteSociIndex(ctx, index, sociStore, artifactsDb)
+	_, err = builder.Build(ctx, image)
 	if err != nil {
 		return nil, err
 	}
 
 	// Get SOCI indices for the image from the OCI store
-	// TODO: consider making soci's WriteSociIndex to return the descriptor directly
 	indexDescriptorInfos, _, err := soci.GetIndexDescriptorCollection(ctx, containerdStore, artifactsDb, image, []ocispec.Platform{platform})
 	if err != nil {
 		return nil, err
